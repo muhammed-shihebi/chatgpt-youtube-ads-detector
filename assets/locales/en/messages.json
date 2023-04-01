@@ -1,0 +1,11 @@
+{
+    "appName": {
+        "message": "Youtube Content Ads Detector"
+    },
+    "appShortName": {
+        "message": "Youtube Content Ads Detector"
+    },
+    "appDescription": {
+        "message": "It detects what part of a video contains ads "
+    }
+}
