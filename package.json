@@ -3,7 +3,7 @@
     "description": "It detects what part of a video contains ads ",
     "version": "0.0.1",
     "homepage": "http://chrome.google.com/webstore",
-    "author": "ENTER YOUR NAME HERE",
+    "author": "Muhammed Sihebi",
     "repository": {
         "type": "git",
         "url": "ENTER GIT REPO URL"
@@ -43,12 +43,21 @@
         "js_bundles": [
             {
                 "name": "background",
-                "src": "./src/**/*.js"
+                "src": "./src/background.js"
+            },
+            {
+                "name": "popup",
+                "src": "./src/popup.js"
+            }, 
+            {
+                "name": "content",
+                "src": "./src/content.js"
             }
         ]
     },
     "dependencies": {
-        "openai-edge": "^0.4.0",
-        "youtube-captions-scraper": "^2.0.0"
+        "he": "^1.2.0",
+        "lodash": "^4.17.21",
+        "striptags": "^3.2.0"
     }
 }
