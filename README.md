@@ -1,6 +1,6 @@
-# Youtube Content Ads Detector
+# Youtube Promotion Ads Skipper
 
-It detects what part of a video contains ads 
+A chrome extension powered by OpenAI GPT that detects what part of a YouTube video contains a promotion ad and allows the user to skip them.
 
 ## Development 
 

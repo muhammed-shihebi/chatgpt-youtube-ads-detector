@@ -1,7 +1,7 @@
 {
   "name": "Youtube Promotion Ads Skipper",
   "short_name": "Youtube Promotion Ads Skipper",
-  "description": "Detects what part of a video contains ads and allows the user to skip them.",
+  "description": "Detects what part of a video contains a promotion ad and allows the user to skip them.",
   "homepage_url": "https://github.com",
   "version": "0.0.1",
   "version_name": "0.0.1",
