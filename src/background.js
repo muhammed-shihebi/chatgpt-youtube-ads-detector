@@ -72,13 +72,13 @@ async function getSubtitles({ videoID }) {
     for (let i = 0; i < language_code_list.length; i++) {
       const lang = language_code_list[i];
       subtitle =
-      find(captionTracks, {
-        vssId: `.${lang}`,
-      }) ||
-      find(captionTracks, {
-        vssId: `a.${lang}`,
-      }) ||
-      find(captionTracks, ({ vssId }) => vssId && vssId.match(`.${lang}`));
+        find(captionTracks, {
+          vssId: `.${lang}`,
+        }) ||
+        find(captionTracks, {
+          vssId: `a.${lang}`,
+        }) ||
+        find(captionTracks, ({ vssId }) => vssId && vssId.match(`.${lang}`));
       if (subtitle) break;
     }
 
