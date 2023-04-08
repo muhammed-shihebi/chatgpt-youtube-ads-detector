@@ -26,7 +26,7 @@ const messages = [
   { role: "user", content: "" },
 ];
 
-async function getSubtitles({ videoID, lang = "de" }) {
+async function getSubtitles({ videoID }) {
   try {
     const response = await fetch(`https:///www.youtube.com/watch?v=${videoID}`);
     const data = await response.text();
@@ -38,7 +38,40 @@ async function getSubtitles({ videoID, lang = "de" }) {
     const [match] = regex.exec(data);
     const { captionTracks } = JSON.parse(`${match}}`);
 
-    const subtitle =
+    let language_code_list = [
+      "en",
+      "es",
+      "fr",
+      "de",
+      "it",
+      "pt",
+      "nl",
+      "sv",
+      "fi",
+      "no",
+      "da",
+      "tr",
+      "ar",
+      "zh",
+      "ja",
+      "ko",
+      "hi",
+      "he",
+      "ru",
+      "pl",
+      "uk",
+      "cs",
+      "ro",
+      "hu",
+      "el",
+      "th",
+    ];
+
+    let subtitle;
+
+    for (let i = 0; i < language_code_list.length; i++) {
+      const lang = language_code_list[i];
+      subtitle =
       find(captionTracks, {
         vssId: `.${lang}`,
       }) ||
@@ -46,10 +79,16 @@ async function getSubtitles({ videoID, lang = "de" }) {
         vssId: `a.${lang}`,
       }) ||
       find(captionTracks, ({ vssId }) => vssId && vssId.match(`.${lang}`));
+      if (subtitle) break;
+    }
+
+    if (!subtitle && captionTracks.length > 0) {
+      subtitle = captionTracks[0];
+    }
 
     // * ensure we have found the correct subtitle lang
-    if (!subtitle || (subtitle && !subtitle.baseUrl))
-      throw new Error(`Could not find ${lang} captions for ${videoID}`);
+    // if (!subtitle || (subtitle && !subtitle.baseUrl))
+    //   throw new Error(`Could not find ${lang} captions for ${videoID}`);
 
     const transcriptResponse = await fetch(subtitle.baseUrl);
     const transcript = await transcriptResponse.text();
