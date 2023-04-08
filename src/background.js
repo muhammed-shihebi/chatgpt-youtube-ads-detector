@@ -159,32 +159,32 @@ async function predictAd(videoId, tabId) {
 
   const OPENAI_API_KEY = key;
 
-  // try {
-  //   const response = await fetch("https://api.openai.com/v1/chat/completions", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${OPENAI_API_KEY}`,
-  //     },
-  //     body: JSON.stringify({
-  //       model: "gpt-3.5-turbo",
-  //       messages: messages,
-  //       max_tokens: 20,
-  //       temperature: 0,
-  //     }),
-  //   });
-  //   const data = await response.json();
-  //   const result = data.choices[0].message.content;
-  //   if (!result) return "openai error";
-  //   if (result.includes("no ads")) return "no ads";
-  //   const endAdTime = result.match(/\d+/g)[1];
-  //   if (!endAdTime) return "openai error";
-  //   return endAdTime;
-  // } catch (error) {
-  //   console.log(error);
-  //   return "openai error";
-  // }
-  return "no ads";
+  try {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        messages: messages,
+        max_tokens: 20,
+        temperature: 0,
+      }),
+    });
+    const data = await response.json();
+    const result = data.choices[0].message.content;
+    if (!result) return "openai error";
+    if (result.includes("no ads")) return "no ads";
+    const endAdTime = result.match(/\d+/g)[1];
+    if (!endAdTime) return "openai error";
+    return endAdTime;
+  } catch (error) {
+    console.log(error);
+    return "openai error";
+  }
+  // return "no ads";
 }
 
 chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
