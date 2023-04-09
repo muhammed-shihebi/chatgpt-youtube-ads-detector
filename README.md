@@ -1,4 +1,4 @@
-# Youtube Promotion Ads Skipper
+# ChatGPT Youtube Ads Detector
 
 A chrome extension powered by OpenAI GPT that detects what part of a YouTube video contains a promotion ad and allows the user to skip them.
 
