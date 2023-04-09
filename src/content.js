@@ -32,9 +32,9 @@ function newVideoLoaded() {
     const removeAdButton = document.createElement("button");
     removeAdButton.className = "ytp-ad-skip-btn";
     removeAdButton.innerHTML = "Skip Promotion";
-    removeAdButton.style.border = "2px solid #ffffff";
+    removeAdButton.style.border = "2px solid #EBEDE8";
     removeAdButton.style.backgroundColor = "transparent";
-    removeAdButton.style.color = "#ffffff";
+    removeAdButton.style.color = "#EBEDE8";
     removeAdButton.style.borderRadius = "5px";
     removeAdButton.style.fontSize = "100%";
     removeAdButton.style.cursor = "pointer";
