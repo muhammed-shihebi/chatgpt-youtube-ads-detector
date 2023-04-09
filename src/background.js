@@ -181,6 +181,7 @@ async function predictAd(videoId, tabId) {
     const result = data.choices[0].message.content;
     if (!result) return "openai error";
     if (result.includes("no ads")) return "no ads";
+    console.log(result);
     const endAdTime = result.match(/\d+/g)[1];
     if (!endAdTime) return "openai error";
     return endAdTime;
@@ -246,5 +247,4 @@ chrome.runtime.onMessage.addListener(async function (
       result: result,
     });
   }
-  return Promise.resolve("Dummy response to keep the console quiet");
 });

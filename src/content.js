@@ -1,7 +1,7 @@
 let youtubeLeftControls, youtubePlayer;
 let currentVideoId = "";
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
   //   removeSpinner();
   if (message.event === "show-button") {
     const { videoId } = message;
@@ -22,7 +22,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   ) {
     alert(message.result);
   }
-  return Promise.resolve("Dummy response to keep the console quiet");
 });
 
 function newVideoLoaded() {
@@ -60,13 +59,7 @@ function newVideoLoaded() {
 }
 
 function removeAdEventHandler() {
-  chrome.runtime.sendMessage({ event: "remove-ad", videoId: currentVideoId }, function (){
-    if (chrome.runtime.lastError) {
-      console.log(chrome.runtime.lastError.message);
-    }else{
-      console.log("message sent");
-    }
-  });
+  chrome.runtime.sendMessage({ event: "remove-ad", videoId: currentVideoId });
   //   addSpinner();
 }
 
