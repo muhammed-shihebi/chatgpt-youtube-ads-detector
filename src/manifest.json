@@ -1,7 +1,7 @@
 {
-  "name": "Youtube Promotion Ads Skipper",
-  "short_name": "Youtube Promotion Ads Skipper",
-  "description": "A chrome extension powered by OpenAI GPT that detects what part of a YouTube video contains a promotion ad and allows the user to skip them.",
+  "name": "ChatGPT Youtube Ads Detector",
+  "short_name": "ChatGPT Youtube Ads Detector",
+  "description": "Chrome extension using OpenAI GPT to detect and skip YouTube promotion ads.",
   "homepage_url": "https://github.com",
   "version": "0.1.0",
   "version_name": "0.1.0",
