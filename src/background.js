@@ -7,13 +7,13 @@ const messages = [
   {
     role: "system",
     content:
-      'You are a prediction AI model. You will receive a list of closed captions CC from a YouTube video in the form of a list of lines (each line seperated by a comma ","). The format of each line is `[start] text`. The `start` is a timestamp in seconds that indicates where the line starts in the video, and text is the text of the line. Your goal is to determine the start and end of the ad in the video. If the video contains an ad, you should output the `start` and `end` of the ad in the form of `[start] [end]`. If the video does not contain an ad, you should output `no ads`. You are not allowed under any circumstance to output anything other than these possibilities: `[start] [end]; `no ads`.',
+      'You are a prediction AI model. You will receive a list of closed captions CC from a YouTube video in the form of a list of lines each line seperated by a white space. The format of each line is `[start] text`. The `start` is a timestamp in seconds that indicates where the line starts in the video, and text is the text of the line. Your goal is to determine the start and end of the ad in the video. If the video contains an ad, you should output the `start` and `end` of the ad in the form of `[start] [end]`. If the video does not contain an ad, you should output `no ads`. You are not allowed under any circumstance to output anything other than these possibilities: `[start] [end]; `no ads`.',
   },
   { role: "system", content: "Example conversations:" },
   {
     role: "user",
     content:
-      "[0] Hey guys, welcome back to my channel!, [4] Today we're going to be talking about fitness, [8] I want to tell you about our sponsor, Audible, [13] Sign up today and get your first audiobook for free!, [17] Now back to our topic, let's get moving and talk about the importance of fitness, [25] Fitness is not only good for your physical health, but also your mental health, [30] So whether you're a gym rat or a beginner, let's get started on our fitness journey together!",
+      "[0] Hey guys, welcome back to my channel! [4] Today we're going to be talking about fitness [8] I want to tell you about our sponsor, Audible [13] Sign up today and get your first audiobook for free! [17] Now back to our topic, let's get moving and talk about the importance of fitness [25] Fitness is not only good for your physical health, but also your mental health [30] So whether you're a gym rat or a beginner, let's get started on our fitness journey together!",
   },
   { role: "assistant", content: "[8] [17]" },
   {
@@ -148,12 +148,16 @@ async function predictAd(videoId, tabId) {
     return "no captions";
   }
 
-  let subCaption = captions.filter((item) => item.start <= 300); // get the first 5 minutes of the video
+  let { videoLength } = await chrome.storage.local.get(["videoLength"]);
+  if (!videoLength) videoLength = 5 * 60;
+  else videoLength = videoLength * 60;
+
+  let subCaption = captions.filter((item) => item.start <= videoLength); // get the first 5 minutes of the video
   subCaption = subCaption
     .map((item) => {
       return `[${Math.round(item.start)}] ${item.text}`;
     })
-    .join(", ");
+    .join(" ");
 
   messages[messages.length - 1].content = subCaption;
 
@@ -213,14 +217,16 @@ chrome.runtime.onMessage.addListener(async function (
     try {
       const result = await predictAd(message.videoId, sender.tab.id);
       if (result === "no captions") {
-        sendResuls("no-captions", "The video has no English captions");
+        sendResuls("no-captions", "The video has no captions");
       } else if (result === "openai error") {
         sendResuls(
           "openai-error",
           "OpenAI error. Make sure your API key is correct"
         );
       } else if (result === "no ads") {
-        sendResuls("no-ads", "No ads in this video in the first 5 minutes");
+        let { videoLength } = await chrome.storage.local.get(["videoLength"]);
+        if (!videoLength) videoLength = 5;
+        sendResuls("no-ads", `No ads in this video in the first ${videoLength} minutes`);
       } else if (result === "no key") {
         sendResuls(
           "no-key",

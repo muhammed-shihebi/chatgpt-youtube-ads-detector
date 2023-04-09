@@ -60,7 +60,13 @@ function newVideoLoaded() {
 }
 
 function removeAdEventHandler() {
-  chrome.runtime.sendMessage({ event: "remove-ad", videoId: currentVideoId });
+  chrome.runtime.sendMessage({ event: "remove-ad", videoId: currentVideoId }, function (){
+    if (chrome.runtime.lastError) {
+      console.log(chrome.runtime.lastError.message);
+    }else{
+      console.log("message sent");
+    }
+  });
   //   addSpinner();
 }
 
