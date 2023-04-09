@@ -9,7 +9,6 @@
   "default_locale": "en",
   "minimum_chrome_version": "88",
   "permissions": [
-    "activeTab",
     "background",
     "storage",
     "tabs"
