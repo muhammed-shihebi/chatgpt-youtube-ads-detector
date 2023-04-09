@@ -12,8 +12,7 @@
     "activeTab",
     "background",
     "storage",
-    "tabs",
-    "notifications"
+    "tabs"
   ],
   "host_permissions": ["https://www.youtube.com/*", "http://www.youtube.com/*"],
   "icons": {
