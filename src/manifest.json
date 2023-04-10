@@ -2,7 +2,7 @@
   "name": "ChatGPT Youtube Ads Detector",
   "short_name": "ChatGPT Youtube Ads Detector",
   "description": "Chrome extension using OpenAI GPT to detect and skip YouTube promotion ads.",
-  "homepage_url": "https://github.com",
+  "homepage_url": "https://github.com/muhammed-shihebi/chatgpt-youtube-ads-detector",
   "version": "0.1.0",
   "version_name": "0.1.0",
   "manifest_version": 3,

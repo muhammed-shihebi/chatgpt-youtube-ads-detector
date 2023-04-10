@@ -222,7 +222,7 @@ chrome.runtime.onMessage.addListener(async function (
       } else if (result === "openai error") {
         sendResuls(
           "openai-error",
-          "OpenAI error. Make sure your API key is correct"
+          "OpenAI error. Either the key is invalid or the captions exceed the model maximum context length (4097)."
         );
       } else if (result === "no ads") {
         let { videoLength } = await chrome.storage.local.get(["videoLength"]);

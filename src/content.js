@@ -12,7 +12,7 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
     if (!isNaN(message.result) && message.result !== null) {
       player.currentTime = message.result;
     } else {
-      alert("OpenAI error. Make sure your API key is correct");
+      alert("OpenAI error.");
     }
   } else if (
     message.event === "no-captions" ||
